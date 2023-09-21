@@ -1,4 +1,4 @@
-var db = require('./dbOperations');
+var Db = require('./dbOperations');
 var hfcData = require('./hfcData');
 const dbOperations = require('./dbOperations');
 
@@ -23,3 +23,20 @@ router.route('/hfcData').get((req, resp) =>{
         resp.json(res[0]);
     })
 })
+
+router.route('/hfcData/:shipName').get((req, resp) => {
+    dbOperations.getData(req.params.shipName).then(res => {
+        resp.json(result[0]);
+    })
+})
+
+router.route('/hfcData').post((req, resp) => {
+    let data = {...req.body}
+    dbOperations.addData(data).then(res => {
+        resp.status(201).json(res);
+    })
+})
+
+var port = process.env.port || 8081;
+app.listen(port);
+console.log('HFC Data is running at ' + port);
