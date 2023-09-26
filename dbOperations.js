@@ -1,7 +1,7 @@
 var config = require('./dbConfig');
 const sql = require('mssql');
 
-async function getDatas(){
+async function getAllData(){
     try{
         let pool = await sql.connect(config);
         let data = await pool.resquest().query("SELECT * FROM HFC_VOYAGES");
@@ -45,7 +45,7 @@ async function addData(data){
 }
 
 module.exports = {
-    getDatas: getDatas,
+    getAllData: getAllData,
     getData: getData,
     addData: addData
 }
