@@ -11,31 +11,35 @@ var router = express.Router();
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 app.use(cors());
-app.use('/api', router);
+//app.use('/api', router);
 
-router.use((req, resp, next) =>{
-    console.log('middleware');
-    next();
+// app.get('/',(req, resp) =>{
+//     resp.send('Hello');
+//     dbOperations.getData().then(res => {
+//         resp.json(res[0]);
+//     })
+// })
+
+// router.route('/hfcData').get((req, resp) =>{
+//     resp.send('Hello');
+//     dbOperations.getData().then(res => {
+//         resp.json(res[0]);
+//     })
+// })
+
+app.get('/', (req, resp) => {
+    let data = {...req.body}
+    dbOperations.getAllData(data).then(res => resp.json(res))
 })
 
-router.route('/hfcData').get((req, resp) =>{
-    dbOperations.getData().then(res => {
-        resp.json(res[0]);
-    })
-})
-
-router.route('/hfcData/:shipName').get((req, resp) => {
-    dbOperations.getData(req.params.shipName).then(res => {
-        resp.json(result[0]);
-    })
-})
-
-router.route('/hfcData').post((req, resp) => {
+app.post('/', (req, resp) => {
     let data = {...req.body}
     dbOperations.addData(data).then(res => {
         resp.status(201).json(res);
     })
 })
+
+
 
 var port = process.env.port || 8081;
 app.listen(port);

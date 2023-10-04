@@ -1,15 +1,16 @@
-var config = require('./dbConfig');
+var config = require('./config/dbConfig');
 const sql = require('mssql');
 
 async function getAllData(){
     try{
         let pool = await sql.connect(config);
-        let data = await pool.resquest().query("SELECT * FROM HFC_VOYAGES");
+        let data = await pool.request().query("SELECT * FROM DBO.HFC_VOYAGES");
         return data.recordsets;
     }
     catch (error){
         console.log(error);
     }
+    
 }
 
 async function getData(shipName){
