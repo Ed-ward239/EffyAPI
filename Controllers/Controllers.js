@@ -1,5 +1,5 @@
-const newData = require("../Model/newData");
-const savedData = require("../Model/savedData");
+const newData = require("../Model");
+const savedData = require("../Model/model");
 const db = require("../Model")
 const voyNum = db.voyageNum;
 const Op = db.Sequelize.Op; 

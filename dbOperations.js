@@ -10,7 +10,6 @@ async function getAllData(){
     catch (error){
         console.log(error);
     }
-    
 }
 
 async function getData(shipName){
@@ -33,11 +32,22 @@ async function addData(data){
             .input('shipName', sql.VarChar(50), data.shipName)
             .input('voyageNum', sql.VarChar(50), data.voyageNum)
             .input('date', sql.Date, data.date)
-            .input('effyShare', sql.Decimal, data.effyShare)
+            .input('effyShare', sql.Money, data.effyShare)
             .input('statusPaid', sql.VarChar(50), data.statusPaid)
             .input('editor', sql.VarChar(50), data.editor)
-            .input('revSS', sql.Decimal, data.revSS)
-            .input('revCC', sql.Decimal, data.revCC)
+            .input('revSS', sql.Money, data.revSS)
+            .input('revCC', sql.Money, data.revCC)
+            // .input('euRev', sql.Money, data.euRev)
+            // .input('carnivalShare', sql.Money, data.carnivalShare)
+            // .input('officeSup', sql.Money, data.officeSup)
+            // .input('discount', sql.Money, data.discount)
+            // .input('execFolio', sql.Money, data.execFolio)
+            // .input('ssFee', sql.Money, data.ssFee)
+            // .input('ccFee', sql.Money, data.ccFee)
+            // .input('mealCharge', sql.Money, data.mealCharge)
+            // .input('paroleFee', sql.Money, data.paroleFee)
+            // .input('cashAdv', sql.Money, data.cashAdv)
+            // .input('cashPaid', sql.Money, data.cashPaid)
         return insertData.recordset;
     }
     catch (error){

@@ -1,11 +1,27 @@
-const express = require('express')
-const router = express.Router();
-const Controllers = require('../Controllers/Controllers')
+module.exports = app => {
+    const dataTable = require("../Controllers/Controllers.js");
+    var router = require(express).Router();
 
-router.get('/findAll', Controllers.findAll);
-router.post('/postNewData', Controllers.postNewData);
-router.post('/saveData', Controllers.saveData);
-router.get('/getSavedData', Controllers.getSavedData);
-router.delete('/deleteData/:voyNum', Controllers.deleteData);
+    // Create a new row of data
+    router.post("/create", dataTable.create);
 
-module.exports = router;
+    // Retrieve all data
+    router.get("/", dataTable.findAllData);
+
+    // Retrieve all
+    //router.get("/findAllData", dataTable.findAllData);
+
+    // Retrieve a single data with id
+    //router.get("/:id", dataTable.findOne);
+
+    // Update data with id
+    router.put("/update", dataTable.update);
+
+    // Delete a data with id
+    router.delete("/delete", dataTable.delete);
+
+    // Delet all data
+    router.delete("/deleteAll", dataTable.deleteAll);
+
+    app.use('/api/dataTable', router);
+};
