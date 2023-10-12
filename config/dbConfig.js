@@ -1,3 +1,23 @@
+require('dotenv').config();
+const sql = require('mssql');
+
+// sql.connect({
+//     // host: process.env.HOST,
+//     // port: parseInt(process.env.PORT),
+//     server: process.env.DB_SERVER,
+//     database: process.env.DB_DATABASE,
+//     username: process.env.DB_USER,
+//     password: process.env.DB_PASSWORD,
+//     options: {
+//         encrypt: true,
+//         trustServerCertificate: true,
+//         enableArithAbort: true, 
+//         instanceName: 'SQLEXPRESS',
+//         trustedConnection: true, 
+//     }
+// });
+
+
 const config = {
     user: 'shipacctportaldev',
     password: 'BFXTczfjG+TbeG%!',
@@ -9,6 +29,6 @@ const config = {
         instancename: 'SQLEXPRESS',
         trustServerCertificate: true
     },
-    port: 1433
 }
-module.exports = config;
+sql.connect(config)
+
