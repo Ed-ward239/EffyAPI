@@ -2,8 +2,8 @@ require('dotenv').config();
 const sql = require('mssql');
 
 // sql.connect({
-//     // host: process.env.HOST,
-//     // port: parseInt(process.env.PORT),
+// host: process.env.HOST,
+// port: parseInt(process.env.PORT),
 //     server: process.env.DB_SERVER,
 //     database: process.env.DB_DATABASE,
 //     user: process.env.DB_USER,
