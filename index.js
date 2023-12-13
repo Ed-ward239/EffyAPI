@@ -1,6 +1,5 @@
-var Db = require('./dbOperations');
-var hfcData = require('./hfcData');
-const dbOperations = require('./dbOperations');
+var hfcData = require('./Model/hfcData');
+const dbOperations = require('./Controllers/dbOperations');
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -10,36 +9,49 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 app.use(cors());
-//app.use('/api', router);
 
-// app.get('/',(req, resp) =>{
-//     resp.send('Hello');
-//     dbOperations.getData().then(res => {
-//         resp.json(res[0]);
-//     })
-// })
+// Get Data
+app.get('/data', async (req, res) => {
+    try {
+        const data = await dbOperations.getAllData();
+        res.json(data);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+// Add data
+app.post('/data', async (req, res) => {
+    try {
+        const data = req.body;
+        const result = await dbOperations.addData(data);
+        res.status(201).json(result);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
 
-// router.route('/hfcData').get((req, resp) =>{
-//     resp.send('Hello');
-//     dbOperations.getData().then(res => {
-//         resp.json(res[0]);
-//     })
-// })
+// Update data
+app.put('/data/:id', async (req, res) => {
+    const id = req.params.id;
+    const data = req.body;
+    try {
+        await dbOperations.updateData(id, data);
+        res.status(200).send('Data updated successfully');
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
 
-app.get('/', (req, resp) => {
-    let data = {...req.body}
-    dbOperations.getAllData(data).then(res => resp.json(res))
-})
-
-app.post('/', (req, resp) => {
-    let data = {...req.body}
-    dbOperations.addData(data).then(res => {
-        resp.status(201).json(res);
-    })
-})
-
-
-
+// Delete data
+app.delete('/data/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        await dbOperations.deleteData(id);
+        res.status(200).send('Data deleted successfully');
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
 
 
 var port = process.env.port || 8081;
