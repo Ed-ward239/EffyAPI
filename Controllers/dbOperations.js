@@ -22,7 +22,7 @@ async function getAllData(){
                 let year = date.getFullYear();
 
                 // Update the date in the record
-                record.date = `${month}-${day}-${year}`;
+                record.date = `${year}-${month}-${day}`;
             }
         });
 
@@ -33,6 +33,9 @@ async function getAllData(){
 }
 
 async function addData(data){
+    // if (!data.shipName) {
+    //     throw new Error("ship_name is required");
+    // }
     try {
         let pool = await sql.connect(config);
         let insertQuery = `INSERT INTO DBO.HFC_VOYAGES_DEV 
@@ -40,25 +43,25 @@ async function addData(data){
                            VALUES (@ship_name, @voyage_num, @date, @effy_share, @status_paid, @editor, @rev_ss, @rev_cc, @eu_vat, @carnival_share, @office_supp, @discounts, @exec_folio, @ss_fee, @cc_fee, @meal_charge, @parole_fee, @cash_adv, @cash_paid)`;
 
         await pool.request()
-            .input('ship_name', sql.VarChar(50), data.shipName)
-            .input('voyage_num', sql.VarChar(50), data.voyageNum)
-            .input('date', sql.Date, new Date(data.date))
-            .input('effy_share', sql.Money, data.effyShare)
-            .input('status_paid', sql.VarChar(50), data.statusPaid)
+            .input('ship_name', sql.VarChar(50), data.ship_name)
+            .input('voyage_num', sql.VarChar(50), data.voyage_num)
+            .input('date', sql.Date, data.date)
+            .input('effy_share', sql.Money, data.effy_share)
+            .input('status_paid', sql.VarChar(50), data.status_paid)
             .input('editor', sql.VarChar(50), data.editor)
-            .input('rev_ss', sql.Money, data.revSS)
-            .input('rev_cc', sql.Money, data.revCC)
-            .input('eu_vat', sql.Money, data.euVAT)
-            .input('carnival_share', sql.Money, data.carnivalShare)
-            .input('office_supp', sql.Money, data.officeSup)
+            .input('rev_ss', sql.Money, data.rev_ss)
+            .input('rev_cc', sql.Money, data.rev_cc)
+            .input('eu_vat', sql.Money, data.eu_vat)
+            .input('carnival_share', sql.Money, data.carnival_share)
+            .input('office_supp', sql.Money, data.office_supp)
             .input('discounts', sql.Money, data.discounts)
-            .input('exec_folio', sql.Money, data.execFolio)
-            .input('ss_fee', sql.Money, data.ssFee)
-            .input('cc_fee', sql.Money, data.ccFee)
-            .input('meal_charge', sql.Money, data.mealCharge)
-            .input('parole_fee', sql.Money, data.paroleFee)
-            .input('cash_adv', sql.Money, data.cashAdv)
-            .input('cash_paid', sql.Money, data.cashPaid)
+            .input('exec_folio', sql.Money, data.exec_folio)
+            .input('ss_fee', sql.Money, data.ss_fee)
+            .input('cc_fee', sql.Money, data.cc_fee)
+            .input('meal_charge', sql.Money, data.meal_charge)
+            .input('parole_fee', sql.Money, data.parole_fee)
+            .input('cash_adv', sql.Money, data.cash_adv)
+            .input('cash_paid', sql.Money, data.cash_paid)
             .query(insertQuery);
 
         return { success: true, message: 'Data added successfully' };
@@ -96,7 +99,7 @@ async function updateData(data){
         await pool.request()
             .input('ship_name', sql.VarChar(50), data.shipName)
             .input('voyage_num', sql.VarChar(50), data.voyageNum)
-            .input('date', sql.Date, new Date(data.date))
+            .input('date', sql.Date, data.date)
             .input('effy_share', sql.Money, data.effyShare)
             .input('status_paid', sql.VarChar(50), data.statusPaid)
             .input('editor', sql.VarChar(50), data.editor)

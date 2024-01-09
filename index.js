@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Get Data
-app.get('/data', async (req, res) => {
+app.get('/', async (req, res) => {
     try {
         const data = await dbOperations.getAllData();
         res.json(data);
@@ -20,7 +20,7 @@ app.get('/data', async (req, res) => {
     }
 });
 // Add data
-app.post('/data', async (req, res) => {
+app.post('/', async (req, res) => {
     try {
         const data = req.body;
         const result = await dbOperations.addData(data);
@@ -31,7 +31,7 @@ app.post('/data', async (req, res) => {
 });
 
 // Update data
-app.put('/data/:id', async (req, res) => {
+app.put('/', async (req, res) => {
     const id = req.params.id;
     const data = req.body;
     try {
@@ -43,7 +43,7 @@ app.put('/data/:id', async (req, res) => {
 });
 
 // Delete data
-app.delete('/data/:id', async (req, res) => {
+app.delete('/', async (req, res) => {
     const id = req.params.id;
     try {
         await dbOperations.deleteData(id);
