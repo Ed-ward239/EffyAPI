@@ -9,11 +9,10 @@ async function getAllData(){
         let pool = await sql.connect(config);
         let result = await pool.request().query("SELECT * FROM DBO.HFC_VOYAGES_DEV");
         
-        let data = result.recordsets[0]; // Assuming you want the first recordset
-
+        let data = result.recordsets[0];
         // Format each date in the recordset
         data.forEach(record => {
-            if (record.date) { // Replace 'date' with your actual date field name
+            if (record.date) { 
                 let date = new Date(record.date);
 
                 // Extract month, day, and year
@@ -22,7 +21,7 @@ async function getAllData(){
                 let year = date.getFullYear();
 
                 // Update the date in the record
-                record.date = `${year}-${month}-${day}`;
+                record.date = `${month}/${day}/${year}`;
             }
         });
 

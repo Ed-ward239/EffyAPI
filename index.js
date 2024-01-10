@@ -20,7 +20,7 @@ app.get('/', async (req, res) => {
     }
 });
 // Add data
-app.post('/', async (req, res) => {
+app.post('/POST', async (req, res) => {
     try {
         const data = req.body;
         const result = await dbOperations.addData(data);
@@ -31,7 +31,7 @@ app.post('/', async (req, res) => {
 });
 
 // Update data
-app.put('/', async (req, res) => {
+app.put('/PUT', async (req, res) => {
     const id = req.params.id;
     const data = req.body;
     try {
@@ -43,7 +43,7 @@ app.put('/', async (req, res) => {
 });
 
 // Delete data
-app.delete('/', async (req, res) => {
+app.delete('/DELETE', async (req, res) => {
     const id = req.params.id;
     try {
         await dbOperations.deleteData(id);
@@ -54,6 +54,6 @@ app.delete('/', async (req, res) => {
 });
 
 
-var port = process.env.port || 8081;
+var port = process.env.port || 3000;
 app.listen(port);
 console.log('HFC Data is running at ' + port);
