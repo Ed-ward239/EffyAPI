@@ -70,12 +70,12 @@ async function addData(data){
     }
 }
 
-async function updateData(data){
+async function updateData(voyageNum, data){
     try {
         let pool = await sql.connect(config);
         let updateQuery = `UPDATE DBO.HFC_VOYAGES_DEV SET 
                            ship_name = @ship_name, 
-                           voyage_num = @voyage_num, 
+                            
                            date = @date, 
                            effy_share = @effy_share, 
                            status_paid = @status_paid, 
@@ -93,29 +93,30 @@ async function updateData(data){
                            parole_fee = @parole_fee, 
                            cash_adv = @cash_adv, 
                            cash_paid = @cash_paid 
-                           WHERE id = @id`;
+                           WHERE voyage_num = @identifyingVoyageNum`;
 
-        await pool.request()
-            .input('ship_name', sql.VarChar(50), data.shipName)
-            .input('voyage_num', sql.VarChar(50), data.voyageNum)
-            .input('date', sql.Date, data.date)
-            .input('effy_share', sql.Money, data.effyShare)
-            .input('status_paid', sql.VarChar(50), data.statusPaid)
-            .input('editor', sql.VarChar(50), data.editor)
-            .input('rev_ss', sql.Money, data.revSS)
-            .input('rev_cc', sql.Money, data.revCC)
-            .input('eu_vat', sql.Money, data.euVAT)
-            .input('carnival_share', sql.Money, data.carnivalShare)
-            .input('office_supp', sql.Money, data.officeSup)
-            .input('discounts', sql.Money, data.discounts)
-            .input('exec_folio', sql.Money, data.execFolio)
-            .input('ss_fee', sql.Money, data.ssFee)
-            .input('cc_fee', sql.Money, data.ccFee)
-            .input('meal_charge', sql.Money, data.mealCharge)
-            .input('parole_fee', sql.Money, data.paroleFee)
-            .input('cash_adv', sql.Money, data.cashAdv)
-            .input('cash_paid', sql.Money, data.cashPaid)
-            .query(updateQuery);
+        let request = await pool.request()
+        request.input('ship_name', sql.VarChar(50), data.ship_name)
+            //.input('voyage_num', sql.VarChar(50), data.voyage_num)
+        request.input('identifyingVoyageNum', sql.VarChar(50), voyageNum)
+        request.input('date', sql.Date, data.date)
+        request.input('effy_share', sql.Money, data.effy_share)
+        request.input('status_paid', sql.VarChar(50), data.status_paid)
+        request.input('editor', sql.VarChar(50), data.editor)
+        request.input('rev_ss', sql.Money, data.rev_ss)
+        request.input('rev_cc', sql.Money, data.rev_cc)
+        request.input('eu_vat', sql.Money, data.eu_vat)
+        request.input('carnival_share', sql.Money, data.carnival_share)
+        request.input('office_supp', sql.Money, data.office_supp)
+        request.input('discounts', sql.Money, data.discounts)
+        request.input('exec_folio', sql.Money, data.exec_folio)
+        request.input('ss_fee', sql.Money, data.ss_fee)
+        request.input('cc_fee', sql.Money, data.cc_fee)
+        request.input('meal_charge', sql.Money, data.meal_charge)
+        request.input('parole_fee', sql.Money, data.parole_fee)
+        request.input('cash_adv', sql.Money, data.cash_adv)
+        request.input('cash_paid', sql.Money, data.cash_paid)
+        await request.query(updateQuery);
 
         return { success: true, message: 'Data updated successfully' };
     } catch (error) {
@@ -124,7 +125,7 @@ async function updateData(data){
     }
 }
 
-async function deleteData(data){
+async function deleteData(voyageNum){
     try {
         let pool = await sql.connect(config);
         let deleteQuery = `DELETE FROM DBO.HFC_VOYAGES_DEV WHERE voyage_num = @voyage_num`;

@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Get Data
-app.get('/', async (req, res) => {
+app.get('/GET', async (req, res) => {
     try {
         const data = await dbOperations.getAllData();
         res.json(data);
@@ -31,29 +31,29 @@ app.post('/POST', async (req, res) => {
 });
 
 // Update data
-app.put('/PUT', async (req, res) => {
-    const id = req.params.id;
+app.put('/PUT/:voyage_num', async (req, res) => {
+    const voyageNum = req.params.voyage_num;
     const data = req.body;
     try {
-        await dbOperations.updateData(id, data);
-        res.status(200).send('Data updated successfully');
+        const result = await dbOperations.updateData(voyageNum, data);
+        res.status(200).json({ message: 'Data updated successfully', result });
     } catch (error) {
         res.status(500).send(error.message);
     }
 });
 
 // Delete data
-app.delete('/DELETE', async (req, res) => {
-    const id = req.params.id;
+app.delete('/DEL/:voyage_num', async (req, res) => {
+    const voyageNum = req.params.voyage_num;
     try {
-        await dbOperations.deleteData(id);
-        res.status(200).send('Data deleted successfully');
+        const result = await dbOperations.deleteData(voyageNum);
+        res.status(200).json({ message: 'Data deleted successfully', result });
     } catch (error) {
         res.status(500).send(error.message);
     }
 });
 
 
-var port = process.env.port || 3000;
+var port = process.env.port || 8081;
 app.listen(port);
 console.log('HFC Data is running at ' + port);
