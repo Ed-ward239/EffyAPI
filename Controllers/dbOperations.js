@@ -7,23 +7,9 @@ app.use(express.json());
 async function getAllData(){
     try{
         let pool = await sql.connect(config);
-        let result = await pool.request().query("SELECT * FROM DBO.HFC_VOYAGES_DEV");
+        let result = await pool.request().query("SELECT * FROM DBO.HFCVOYAGESDEV");
         
         let data = result.recordsets[0];
-        // Format each date in the recordset
-        data.forEach(record => {
-            if (record.date) { 
-                let date = new Date(record.date);
-
-                // Extract month, day, and year
-                let month = ('0' + (date.getMonth() + 1)).slice(-2); // Adding leading zero
-                let day = ('0' + date.getDate()).slice(-2); // Adding leading zero
-                let year = date.getFullYear();
-
-                // Update the date in the record
-                record.date = `${month}/${day}/${year}`;
-            }
-        });
 
         return data;
     } catch (error) {
@@ -37,7 +23,7 @@ async function addData(data){
     // }
     try {
         let pool = await sql.connect(config);
-        let insertQuery = `INSERT INTO DBO.HFC_VOYAGES_DEV 
+        let insertQuery = `INSERT INTO DBO.HFCVOYAGESDEV 
                            (ship_name, voyage_num, date, effy_share, status_paid, editor, rev_ss, rev_cc, eu_vat, carnival_share, office_supp, discounts, exec_folio, ss_fee, cc_fee, meal_charge, parole_fee, cash_adv, cash_paid) 
                            VALUES (@ship_name, @voyage_num, @date, @effy_share, @status_paid, @editor, @rev_ss, @rev_cc, @eu_vat, @carnival_share, @office_supp, @discounts, @exec_folio, @ss_fee, @cc_fee, @meal_charge, @parole_fee, @cash_adv, @cash_paid)`;
 
@@ -73,9 +59,8 @@ async function addData(data){
 async function updateData(voyageNum, data){
     try {
         let pool = await sql.connect(config);
-        let updateQuery = `UPDATE DBO.HFC_VOYAGES_DEV SET 
+        let updateQuery = `UPDATE DBO.HFCVOYAGESDEV SET 
                            ship_name = @ship_name, 
-                            
                            date = @date, 
                            effy_share = @effy_share, 
                            status_paid = @status_paid, 
@@ -128,7 +113,7 @@ async function updateData(voyageNum, data){
 async function deleteData(voyageNum){
     try {
         let pool = await sql.connect(config);
-        let deleteQuery = `DELETE FROM DBO.HFC_VOYAGES_DEV WHERE voyage_num = @voyage_num`;
+        let deleteQuery = `DELETE FROM DBO.HFCVOYAGESDEV WHERE voyage_num = @voyage_num`;
 
         await pool.request()
             .input('voyage_num', sql.VarChar(50), voyageNum)
