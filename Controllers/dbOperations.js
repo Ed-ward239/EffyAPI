@@ -18,9 +18,6 @@ async function getAllData(){
 }
 
 async function addData(data){
-    // if (!data.shipName) {
-    //     throw new Error("ship_name is required");
-    // }
     try {
         let pool = await sql.connect(config);
         let insertQuery = `INSERT INTO DBO.HFCVOYAGESDEV 
@@ -34,19 +31,19 @@ async function addData(data){
             .input('effy_share', sql.Money, data.effy_share)
             .input('status_paid', sql.VarChar(50), data.status_paid)
             .input('editor', sql.VarChar(50), data.editor)
-            .input('rev_ss', sql.Money, data.rev_ss)
-            .input('rev_cc', sql.Money, data.rev_cc)
-            .input('eu_vat', sql.Money, data.eu_vat)
-            .input('carnival_share', sql.Money, data.carnival_share)
-            .input('office_supp', sql.Money, data.office_supp)
-            .input('discounts', sql.Money, data.discounts)
-            .input('exec_folio', sql.Money, data.exec_folio)
-            .input('ss_fee', sql.Money, data.ss_fee)
-            .input('cc_fee', sql.Money, data.cc_fee)
-            .input('meal_charge', sql.Money, data.meal_charge)
-            .input('parole_fee', sql.Money, data.parole_fee)
-            .input('cash_adv', sql.Money, data.cash_adv)
-            .input('cash_paid', sql.Money, data.cash_paid)
+            .input('rev_ss', sql.Money, data.rev_ss !== '' ? data.rev_ss : null)
+            .input('rev_cc', sql.Money, data.rev_cc !== '' ? data.rev_cc : null)
+            .input('eu_vat', sql.Money, data.eu_vat !== '' ? data.eu_vat : null)
+            .input('carnival_share', sql.Money, data.carnival_share !== '' ? data.carnival_share : null)
+            .input('office_supp', sql.Money, data.office_supp !== '' ? data.office_supp : null)
+            .input('discounts', sql.Money, data.discounts !== '' ? data.discounts : null)
+            .input('exec_folio', sql.Money, data.exec_folio !== '' ? data.exec_folio : null)
+            .input('ss_fee', sql.Money, data.ss_fee !== '' ? data.ss_fee : null)
+            .input('cc_fee', sql.Money, data.cc_fee !== '' ? data.cc_fee : null)
+            .input('meal_charge', sql.Money, data.meal_charge !== '' ? data.meal_charge : null)
+            .input('parole_fee', sql.Money, data.parole_fee !== '' ? data.parole_fee : null)
+            .input('cash_adv', sql.Money, data.cash_adv !== '' ? data.cash_adv : null)
+            .input('cash_paid', sql.Money, data.cash_paid !== '' ? data.cash_paid : null)
             .query(insertQuery);
 
         return { success: true, message: 'Data added successfully' };
@@ -88,19 +85,19 @@ async function updateData(voyageNum, data){
         request.input('effy_share', sql.Money, data.effy_share)
         request.input('status_paid', sql.VarChar(50), data.status_paid)
         request.input('editor', sql.VarChar(50), data.editor)
-        request.input('rev_ss', sql.Money, data.rev_ss)
-        request.input('rev_cc', sql.Money, data.rev_cc)
-        request.input('eu_vat', sql.Money, data.eu_vat)
-        request.input('carnival_share', sql.Money, data.carnival_share)
-        request.input('office_supp', sql.Money, data.office_supp)
-        request.input('discounts', sql.Money, data.discounts)
-        request.input('exec_folio', sql.Money, data.exec_folio)
-        request.input('ss_fee', sql.Money, data.ss_fee)
-        request.input('cc_fee', sql.Money, data.cc_fee)
-        request.input('meal_charge', sql.Money, data.meal_charge)
-        request.input('parole_fee', sql.Money, data.parole_fee)
-        request.input('cash_adv', sql.Money, data.cash_adv)
-        request.input('cash_paid', sql.Money, data.cash_paid)
+        request.input('rev_ss', sql.Money, data.rev_ss !== '' ? data.rev_ss : null)
+        request.input('rev_cc', sql.Money, data.rev_cc !== '' ? data.rev_cc : null)
+        request.input('eu_vat', sql.Money, data.eu_vat !== '' ? data.eu_vat : null)
+        request.input('carnival_share', sql.Money, data.carnival_share !== '' ? data.carnival_share : null)
+        request.input('office_supp', sql.Money, data.office_supp !== '' ? data.office_supp : null)
+        request.input('discounts', sql.Money, data.discounts !== '' ? data.discounts : null)
+        request.input('exec_folio', sql.Money, data.exec_folio !== '' ? data.exec_folio : null)
+        request.input('ss_fee', sql.Money, data.ss_fee !== '' ? data.ss_fee : null)
+        request.input('cc_fee', sql.Money, data.cc_fee !== '' ? data.cc_fee : null)
+        request.input('meal_charge', sql.Money, data.meal_charge !== '' ? data.meal_charge : null)
+        request.input('parole_fee', sql.Money, data.parole_fee !== '' ? data.parole_fee : null)
+        request.input('cash_adv', sql.Money, data.cash_adv !== '' ? data.cash_adv : null)
+        request.input('cash_paid', sql.Money, data.cash_paid !== '' ? data.cash_paid : null)
         await request.query(updateQuery);
 
         return { success: true, message: 'Data updated successfully' };

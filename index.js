@@ -16,7 +16,7 @@ app.get('/GET', async (req, res) => {
         const data = await dbOperations.getAllData();
         res.json(data);
     } catch (error) {
-        res.status(500).send(error.message);
+        res.status(500).send(error.alert);
     }
 });
 // Add data
@@ -24,9 +24,9 @@ app.post('/POST', async (req, res) => {
     try {
         const data = req.body;
         const result = await dbOperations.addData(data);
-        res.status(201).json(result);
+        res.status(201).json({ alert: 'Data added successfully', result });
     } catch (error) {
-        res.status(500).send(error.message);
+        res.status(500).send(error.alert);
     }
 });
 
@@ -36,9 +36,9 @@ app.put('/PUT/:voyage_num', async (req, res) => {
     const data = req.body;
     try {
         const result = await dbOperations.updateData(voyageNum, data);
-        res.status(200).json({ message: 'Data updated successfully', result });
+        res.status(200).json({ alert: 'Data updated successfully', result });
     } catch (error) {
-        res.status(500).send(error.message);
+        res.status(500).send(error.alert);
     }
 });
 
@@ -47,9 +47,9 @@ app.delete('/DEL/:voyage_num', async (req, res) => {
     const voyageNum = req.params.voyage_num;
     try {
         const result = await dbOperations.deleteData(voyageNum);
-        res.status(200).json({ message: 'Data deleted successfully', result });
+        res.status(200).json({ alert: 'Data deleted successfully', result });
     } catch (error) {
-        res.status(500).send(error.message);
+        res.status(500).send(error.alert);
     }
 });
 
