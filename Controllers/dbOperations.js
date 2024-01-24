@@ -20,6 +20,17 @@ async function getAllData(){
 async function addData(data){
     try {
         let pool = await sql.connect(config);
+        // First, check if the voyage_num already exists
+        const checkQuery = `SELECT COUNT(*) as count FROM DBO.HFCVOYAGESDEV WHERE voyage_num = @voyage_num`;
+        const checkResult = await pool.request()
+            .input('voyage_num', sql.VarChar(50), data.voyage_num)
+            .query(checkQuery);
+
+        if (checkResult.recordset[0].count > 0) {
+            // If the voyage_num already exists, return an error message
+            return { success: false, message: 'This Voyage Already Exists in the Database' };
+        }
+
         let insertQuery = `INSERT INTO DBO.HFCVOYAGESDEV 
                            (ship_name, voyage_num, date, effy_share, status_paid, editor, rev_ss, rev_cc, eu_vat, carnival_share, office_supp, discounts, exec_folio, ss_fee, cc_fee, meal_charge, parole_fee, cash_adv, cash_paid) 
                            VALUES (@ship_name, @voyage_num, @date, @effy_share, @status_paid, @editor, @rev_ss, @rev_cc, @eu_vat, @carnival_share, @office_supp, @discounts, @exec_folio, @ss_fee, @cc_fee, @meal_charge, @parole_fee, @cash_adv, @cash_paid)`;
