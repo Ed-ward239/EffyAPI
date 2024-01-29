@@ -24,9 +24,13 @@ app.post('/POST', async (req, res) => {
     try {
         const data = req.body;
         const result = await dbOperations.addData(data);
+        if (!result.success) {
+            // If the addition was not successful, send the corresponding message
+            return res.status(409).json({ alert: result.message }); // 409 Conflict
+        }
         res.status(201).json({ alert: 'Data added successfully', result });
     } catch (error) {
-        res.status(500).send(error.alert);
+        res.status(500).send(error.message);
     }
 });
 
