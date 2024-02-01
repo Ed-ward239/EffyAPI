@@ -5,7 +5,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var app = express();
-
+var http = require('http');
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 app.use(cors());
@@ -58,6 +58,10 @@ app.delete('/DEL/:voyage_num', async (req, res) => {
 });
 
 
-var port = process.env.port || 8081;
-app.listen(port);
-console.log('HFC Data is running at ' + port);
+// var port = process.env.port || 8081;
+// app.listen(port);
+// console.log('HFC Data is running at ' + port);
+
+http.createServer(app).listen(8081, function () {
+    console.log('Server is running on port 8081');
+});
