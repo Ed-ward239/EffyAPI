@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "node run build",
     "test": "jest",
     "start": "node index.js"
   },
