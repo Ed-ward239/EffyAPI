@@ -108,12 +108,13 @@ app.delete('/NCL_DEL/:voyage_num', async (req, res) => {
 });
 
 
-// var port = process.env.port || 8081;
-// app.listen(port);
-// console.log('HFC Data is running at ' + port);
-
-http.createServer(app).listen(8081, function () {
-    console.log('Server is running on port 8081');
+const PORT = process.env.PORT || 8081;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
+
+// http.createServer(app).listen(8081, function () {
+//     console.log('Server is running on port 8081');
+// });
 
 module.exports = app;
