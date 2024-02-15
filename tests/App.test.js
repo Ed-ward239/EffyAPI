@@ -1,9 +1,10 @@
 // index.test.js for backend API
 const request = require("supertest");
 const app = require("../App");
+const mssql = require('mssql');
 require('dotenv').config();
 // Database connection
-const db = mysql.createConnection({
+const db = mssql.createConnection({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   server: process.env.DB_SERVER,
