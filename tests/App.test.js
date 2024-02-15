@@ -1,9 +1,22 @@
 // index.test.js for backend API
 const request = require("supertest");
 const app = require("../App");
+require('dotenv').config();
+// Database connection
+const db = mysql.createConnection({
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  server: process.env.DB_SERVER,
+  database: process.env.DB_DATABASE,
+});
+
+db.connect((err) => {
+  if (err) throw err;
+  console.log('Connected to the database');
+});
 
 test("Get CCL", async () => {
-  const response = await request(app).get("/users");
+  const response = await request(app).get("/ccl_get");
   expect(response.status).toBe(500);
   expect(response.body).toEqual([
     {
@@ -70,4 +83,4 @@ test("Get CCL", async () => {
       effy_share: 26233.22,
     },
   ]);
-}, 10000);
+}, 20000);
