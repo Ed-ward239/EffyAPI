@@ -91,11 +91,7 @@ test("Get CCL", async () => {
       effy_share: 26233.22,
     },
   ]);
-}, 10000);
-
-afterAll(async () => {
-  await sql.close();
-});
+}, 20000);
 
 app.listen(3000, () => {
   console.log('Server started on port 3000');
