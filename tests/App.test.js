@@ -4,7 +4,7 @@ const app = require("../App");
 const sql = require('mssql');
 require('dotenv').config();
 // Database connection
-const db = sql.createConnection({
+const db=({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   server: process.env.DB_SERVER,
@@ -15,7 +15,7 @@ const db = sql.createConnection({
   }
 });
 
-sql.connect(config)
+sql.connect(db)
   .then(pool => {
     console.log('Connected to the database');
   })
@@ -91,8 +91,12 @@ test("Get CCL", async () => {
       effy_share: 26233.22,
     },
   ]);
-}, 20000);
+}, 10000);
 
 afterAll(async () => {
   await sql.close();
+});
+
+app.listen(3000, () => {
+  console.log('Server started on port 3000');
 });
