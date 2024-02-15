@@ -25,7 +25,7 @@ sql.connect(db)
 
 test("Get CCL", async () => {
   const response = await request(app).get("/ccl_get");
-  expect(response.status).toBe(500);
+  expect(response.status).toBe(200);
   expect(response.body).toEqual([
     {
       ship_name: "ALBATROSS",
