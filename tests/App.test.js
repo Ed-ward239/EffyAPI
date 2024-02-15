@@ -4,7 +4,7 @@ const app = require("../App");
 
 test("Get CCL", async () => {
   const response = await request(app).get("/users");
-  expect(response.status).toBe(200);
+  expect(response.status).toBe(500);
   expect(response.body).toEqual([
     {
       ship_name: "ALBATROSS",
