@@ -54,6 +54,9 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
       
+      - name: Dev Deploy
+        run: echo "Deploying to development"
+
       - name: Login to Azure
         uses: azure/login@v1
         with:
