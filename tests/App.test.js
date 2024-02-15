@@ -1,20 +1,27 @@
 // index.test.js for backend API
 const request = require("supertest");
 const app = require("../App");
-const mssql = require('mssql');
+const sql = require('mssql');
 require('dotenv').config();
 // Database connection
-const db = mssql.createConnection({
+const db = sql.createConnection({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   server: process.env.DB_SERVER,
   database: process.env.DB_DATABASE,
+  options: {
+    encrypt: true, 
+    trustServerCertificate: true
+  }
 });
 
-db.connect((err) => {
-  if (err) throw err;
-  console.log('Connected to the database');
-});
+sql.connect(config)
+  .then(pool => {
+    console.log('Connected to the database');
+  })
+  .catch(err => {
+    console.error('Database connection failed', err);
+  });
 
 test("Get CCL", async () => {
   const response = await request(app).get("/ccl_get");
@@ -85,3 +92,7 @@ test("Get CCL", async () => {
     },
   ]);
 }, 20000);
+
+afterAll(async () => {
+  await sql.close();
+});
