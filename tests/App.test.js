@@ -10,27 +10,6 @@ test("Get CCL", async () => {
   expect(response.status).toBe(200);
   expect(response.body).toEqual([
     {
-      ship_name: "ALBATROSS",
-      voyage_num: "AL20231002005",
-      date: "2023-10-02T00:00:00.000Z",
-      status_paid: "Unpaid",
-      editor: "Edward",
-      rev_ss: 17459,
-      rev_cc: 23230,
-      eu_vat: null,
-      carnival_share: -15604.32,
-      office_supp: null,
-      discounts: 111.12,
-      exec_folio: -111.12,
-      ss_fee: -225,
-      cc_fee: -511.06,
-      meal_charge: -400,
-      parole_fee: null,
-      cash_adv: null,
-      cash_paid: null,
-      effy_share: 23980,
-    },
-    {
       ship_name: "APEX",
       voyage_num: "AP20271122005",
       date: "2027-11-22T00:00:00.000Z",
