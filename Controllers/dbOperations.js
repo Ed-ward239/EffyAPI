@@ -117,7 +117,7 @@ async function updateData(voyageNum, data){
         return { success: false, message: 'Error updating data', error: error };
     }
 }
-
+  
 async function deleteData(voyageNum){
     try {
         let pool = await sql.connect(config);
