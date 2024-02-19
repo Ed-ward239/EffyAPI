@@ -125,7 +125,7 @@ async function deleteData(voyageNum){
 
         await pool.request()
             .input('voyage_num', sql.VarChar(50), voyageNum)
-            .query(deleteQuery);
+            .query(deleteQuery) ;
 
         return { success: true, message: 'Data deleted successfully' };
     } catch (error) {
