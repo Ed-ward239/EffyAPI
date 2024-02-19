@@ -6,6 +6,7 @@ const config = {
     password: process.env.DB_PASSWORD,
     server: process.env.DB_SERVER,
     database: process.env.DB_DATABASE,
+    connectionTimeout: 30000,
     options: {
         encrypt: true,
         trustedconnection: true,
@@ -14,4 +15,5 @@ const config = {
         trustServerCertificate: true
     },
 }
-sql.connect(config)
+sql.connect(config).then(() => console.log('Connected to the RDS'))
+                   .catch(err => console.error('Database connection failed: ', err));
