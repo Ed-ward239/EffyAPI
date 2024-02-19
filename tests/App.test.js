@@ -3,25 +3,7 @@ const request = require("supertest");
 const app = require("../App");
 const sql = require('mssql');
 require('dotenv').config();
-// Database connection
-const db=({
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  server: process.env.DB_SERVER,
-  database: process.env.DB_DATABASE,
-  options: {
-    encrypt: true, 
-    trustServerCertificate: true
-  }
-});
 
-sql.connect(db)
-  .then(pool => {
-    console.log('Connected to the database');
-  })
-  .catch(err => {
-    console.error('Database connection failed', err);
-  });
 
 test("Get CCL", async () => {
   const response = await request(app).get("/ccl_get");
@@ -93,6 +75,3 @@ test("Get CCL", async () => {
   ]);
 }, 20000);
 
-app.listen(4000, () => {
-  console.log('Server started on port 3000');
-});
