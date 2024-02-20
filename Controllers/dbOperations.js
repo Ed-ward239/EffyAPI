@@ -117,7 +117,7 @@ async function updateData(voyageNum, data){
         return { success: false, message: 'Error updating data', error: error };
     }
 }
-
+  
 async function deleteData(voyageNum){
     try {
         let pool = await sql.connect(config);
@@ -125,7 +125,7 @@ async function deleteData(voyageNum){
 
         await pool.request()
             .input('voyage_num', sql.VarChar(50), voyageNum)
-            .query(deleteQuery);
+            .query(deleteQuery) ;
 
         return { success: true, message: 'Data deleted successfully' };
     } catch (error) {
