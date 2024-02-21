@@ -113,8 +113,8 @@ app.delete('/NCL_DEL/:voyage_num', async (req, res) => {
 //   console.log(`Server running on port ${PORT}`);
 // });
 
-http.createServer(app).listen(8081, function () {
-    console.log('Server is running on port 8081');
+http.createServer(app).listen(3000, function () {
+    console.log('Server is running on port 3000');
 });
 
 module.exports = app;
