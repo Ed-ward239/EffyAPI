@@ -33,8 +33,8 @@ async function addData(data){
         }
 
         let insertQuery = `INSERT INTO DBO.NCLVOYAGESDEV 
-                           (voyage_num, ship_name, start_date, end_date, revenue, vip_sales, plcc, dpa, plcc_dpa, vat, reg_commission, vip_commission, discounts, food, beverages, cc_fee, supplies, misc_charges, cash_adv, medical_charges, printing, prize_voucher, effy_rev, status_paid, editor) 
-                           VALUES (@voyage_num, @ship_name, @start_date, @end_date, @revenue, @vip_sales, @plcc, @dpa, @plcc_dpa, @vat, @reg_commission, @vip_commission, @discounts, @food, @beverages, @cc_fee, @supplies, @misc_charges, @cash_adv, @medical_charges, @printing, @prize_voucher, @effy_rev, @status_paid, @editor)`;
+                           (voyage_num, ship_name, start_date, end_date, revenue, vip_sales, plcc, dpa, plcc_dpa, vat, reg_commission, vip_commission, discounts, food, beverages, cc_fee, supplies, misc_charges, cash_adv, medical_charges, printing, prize_voucher, effy_rev, status_paid, editor, promo_food, requisition) 
+                           VALUES (@voyage_num, @ship_name, @start_date, @end_date, @revenue, @vip_sales, @plcc, @dpa, @plcc_dpa, @vat, @reg_commission, @vip_commission, @discounts, @food, @beverages, @cc_fee, @supplies, @misc_charges, @cash_adv, @medical_charges, @printing, @prize_voucher, @effy_rev, @status_paid, @editor, @promo_food, @requisition)`;
 
         await pool.request()
             .input('voyage_num', sql.VarChar(50), data.voyage_num)
@@ -62,6 +62,8 @@ async function addData(data){
             .input('effy_rev', sql.Money, data.effy_rev)
             .input('status_paid', sql.VarChar(50), data.status_paid)
             .input('editor', sql.VarChar(50), data.editor)
+            .input('promo_food', sql.SmallMoney, data.promo_food !== '' ? data.promo_food : null)
+            .input('requisition', sql.SmallMoney, data.requisition !== '' ? data.requisition : null)
             .query(insertQuery);
 
         return { success: true, message: 'Data added successfully' };
@@ -98,7 +100,9 @@ async function updateData(voyageNum, data){
                            prize_voucher = @prize_voucher, 
                            effy_rev = @effy_rev, 
                            status_paid = @status_paid, 
-                           editor = @editor
+                           editor = @editor,
+                           promo_food = @promo_food, 
+                           requisition = @requisition
                            WHERE voyage_num = @voyage_num`; // after connected with frontend change to @identifyingVoyageNum
         console.log(`Executing update query for voyageNum: ${voyageNum}`);
 
@@ -128,6 +132,8 @@ async function updateData(voyageNum, data){
         request.input('effy_rev', sql.Money, data.effy_rev)
         request.input('status_paid', sql.VarChar(50), data.status_paid)
         request.input('editor', sql.VarChar(50), data.editor)
+        request.input('promo_food', sql.SmallMoney, data.promo_food !== '' ? data.promo_food : null)
+        request.input('requisition', sql.SmallMoney, data.requisition !== '' ? data.requisition : null)
         await request.query(updateQuery);
         let result = await request.query(updateQuery);
 
