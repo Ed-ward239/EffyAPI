@@ -1,5 +1,8 @@
 # EffyAPI
 
+### Documentation
+Open [https://eddie-teddy-baddie.notion.site/Effy-Portal-Documentation-81eb823251e24c159aaf8e1e270c0749](https://eddie-teddy-baddie.notion.site/Effy-Portal-Documentation-81eb823251e24c159aaf8e1e270c0749) to view the Notion page
+
 ## Available Scripts
 
 In the project directory, you can run:
