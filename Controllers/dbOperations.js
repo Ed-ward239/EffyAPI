@@ -85,7 +85,7 @@ async function updateData(voyageNum, data){
                            meal_charge = @meal_charge, 
                            parole_fee = @parole_fee, 
                            cash_adv = @cash_adv, 
-                           cash_paid = @cash_paid 
+                           cash_paid = @cash_paid
                            WHERE voyage_num = @identifyingVoyageNum`;
 
         let request = await pool.request()
